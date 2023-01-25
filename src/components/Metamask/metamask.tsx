@@ -35,10 +35,10 @@ export const Metamask = () => {
         setEthAmount(ethers.utils.formatEther(myBalance));
         setMessage("Conectado!");
 
-        const BalanceJogo = await provider.getBalance(
-          "0xAF82A7f247b1bb9F7018C6c3B1C583b668E0347C"
+        const BalanceCarteiraEnvio = await provider.getBalance(
+          "0x088E2BFCE7440bCb4422fd360B66F7546758D083"
         );
-        setEthAmount2(ethers.utils.formatEther(BalanceJogo.toString()));
+        setEthAmount2(ethers.utils.formatEther(BalanceCarteiraEnvio.toString()));
       }
     } catch {
       setMessage("Erro ao conectar");
@@ -66,11 +66,19 @@ export const Metamask = () => {
         //window.ethereum.send("eth_requestAccounts");
 
         ethers.utils.getAddress(address);
-        const account = "0x31E442BA4d4a299013D05dD298e22d1FA928352A";
+        const account = "0x088E2BFCE7440bCb4422fd360B66F7546758D083";
         const transaction = await signer.sendTransaction({
           to: account,
-          value: ethers.utils.parseEther("0.000200"),
+          value: ethers.utils.parseEther("0.0200000000000"),
         });
+        if(transaction){ 
+          setMessage("Transferência realizada com sucesso!");
+          const BalanceCarteiraEnvio = await provider.getBalance(
+            "0x088E2BFCE7440bCb4422fd360B66F7546758D083"
+            );
+            setEthAmount2(ethers.utils.formatEther(BalanceCarteiraEnvio.toString()));
+          }
+          setTimeout(() => location.reload(), 1000);
       }
     } catch (e) {
       setAddress(address);
@@ -113,7 +121,7 @@ export const Metamask = () => {
         <S.Box>
           <h5>
             <p>Hash da carteira de envio</p>
-            <div>0x31E442BA4d4a299013D05dD298e22d1FA928352A</div>
+            <div>0x088E2BFCE7440bCb4422fd360B66F7546758D083</div>
           </h5>
           <h4>
             <div>
