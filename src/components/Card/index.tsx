@@ -64,7 +64,7 @@ export const Card = ({ state, setState }: IdCardProps) => {
           <>
             <S.ContainerCard key={dado.id_car} id={dado.id_car}>
               <S.ContainerTitle>
-                <S.Title>Carro: {dado.name_car} </S.Title>
+                <S.Title style={{color:"black"}}>Carro: {dado.name_car} </S.Title>
                 <img
                   src="https://source.unsplash.com/random/100x60/?carro"
                   alt=""
