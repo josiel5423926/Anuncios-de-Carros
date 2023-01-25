@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import * as S from "./styles";
-//import { GetCar} from "../../services/axios";
+import { deleteCar } from "../../services/axios";
 import { Link } from "react-router-dom";
 
 interface ReturnDados {
@@ -24,16 +24,7 @@ export const Card = ({ state, setState }: IdCardProps) => {
   const [dados, setDados] = useState<ReturnDados[]>([]);
 
   async function GetCar() {
-    ///minha
-    //fetch("https://sheet.best/api/sheets/1a2e579f-7add-4dce-862b-f23e5f0921e5")
-    //abara
-    //fetch("https://sheet.best/api/sheets/2fa96ecf-7ae2-47d2-b54c-dea06e847bc7")
-    //bia
-    fetch("https://sheet.best/api/sheets/ae3f9af7-72c0-4864-985e-45bce616a4c1")
-
-    
-    //faex
-    // fetch("https://sheet.best/api/sheets/2fa96ecf-7ae2-47d2-b54c-dea06e847bc7")
+    fetch("https://sheet.best/api/sheets/64db23b6-b6a2-4247-a602-08215d1cb738")
       .then((response) => response.json())
       .then((data) => {
         setDados(data);
@@ -53,19 +44,17 @@ export const Card = ({ state, setState }: IdCardProps) => {
 
   const handleDelete = async (e: any) => {
     const eventTarget = e.currentTarget;
+    e.preventDefault();
 
     const containerCardId = eventTarget.parentNode.parentNode.id;
     console.log("id card: ", containerCardId);
 
-    // await deleteCar(containerCardId);
-    //location.reload();
+    await deleteCar(containerCardId);
+    setTimeout(() => location.reload(), 1000);
   };
 
   useEffect(() => {
-GetCar();
-/*     setTimeout(() => {
-      location.reload();
-    }, 100); */
+    GetCar();
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import { useState } from "react";
 import { update } from "../../../services/axios";
-import axios from "axios";
+
 interface Data {
   id_car?: string;
   name_car?: string;
@@ -33,7 +33,6 @@ export const Update = ({ state, setState }: IdCardProps) => {
   const date = new Date();
   const formattedDate = date.toLocaleDateString();
 
-  
   const resetForm = () => {
     setName_car("");
     setBrand("");
@@ -44,10 +43,9 @@ export const Update = ({ state, setState }: IdCardProps) => {
     setPhone("");
   };
 
-
   const handleSubmit = async (e: React.SyntheticEvent, idCarState: string) => {
     e.preventDefault();
-    const data: Data = {
+    let data: Data = {
       id_car: idCarState,
       name_car: name_car,
       brand: brand,
@@ -58,9 +56,9 @@ export const Update = ({ state, setState }: IdCardProps) => {
       phone: phone,
       updated: formattedDate,
     };
-// const res = await update(state.idState, data);
+
     const res = await update(state.idState, data);
-    console.log("na pagina",res);
+
     if (res === true) {
       setTimeout(() => {
         setSuccess(true);
@@ -79,8 +77,8 @@ export const Update = ({ state, setState }: IdCardProps) => {
       setTimeout(() => {
         setError(false);
       }, 2000);
-    } 
-  }; 
+    }
+  };
 
   return (
     <S.ContainerForm>
@@ -149,10 +147,9 @@ export const Update = ({ state, setState }: IdCardProps) => {
       <S.ContainerButton>
         <button
           type="submit"
-        
-           onClick={(event) => {
+          onClick={(event) => {
             handleSubmit(event, idCarState);
-          }} 
+          }}
         >
           Confirmar
         </button>
