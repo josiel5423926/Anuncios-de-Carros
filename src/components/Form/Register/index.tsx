@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import { useState } from "react";
-import { api, save } from "../../../services/axios";
-
+import { save } from "../../../services/axios";
+import { v4 as uuidv4 } from "uuid";
 interface Data {
   id_car?: string;
   name_car?: string;
@@ -11,8 +11,7 @@ interface Data {
   name?: string;
   email?: string;
   phone?: string;
-  created_at?: Date;
-  updated?: Date;
+  Data?: string;
 }
 interface IdCardProps {
   state: { idState: string };
@@ -31,7 +30,8 @@ export const Register = ({ state, setState }: IdCardProps) => {
   const [phone, setPhone] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString();
   const resetForm = () => {
     setName_car("");
     setBrand("");
@@ -45,6 +45,7 @@ export const Register = ({ state, setState }: IdCardProps) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const data: Data = {
+      id_car: uuidv4(),
       name_car: name_car,
       brand: brand,
       year_of_manufacture: parseInt(year_of_manufacture),
@@ -52,6 +53,7 @@ export const Register = ({ state, setState }: IdCardProps) => {
       name: name,
       email: email,
       phone: phone,
+      Data: formattedDate,
     };
 
     if (
@@ -62,8 +64,6 @@ export const Register = ({ state, setState }: IdCardProps) => {
       name &&
       phone != ""
     ) {
-      api.get("fetchAll").then((response) => setDados(response.data));
-
       save(data);
 
       setSuccess(true);

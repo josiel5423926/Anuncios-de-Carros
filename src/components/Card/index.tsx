@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import * as S from "./styles";
-import { api, deleteCar } from "../../services/axios";
+//import { GetCar} from "../../services/axios";
 import { Link } from "react-router-dom";
 
 interface ReturnDados {
@@ -12,9 +12,7 @@ interface ReturnDados {
   name?: string;
   email?: string;
   phone?: string;
-  created_at?: Date;
-  updated?: Date;
-  children: ReactNode;
+  Data?: string;
 }
 
 interface IdCardProps {
@@ -25,20 +23,33 @@ interface IdCardProps {
 export const Card = ({ state, setState }: IdCardProps) => {
   const [dados, setDados] = useState<ReturnDados[]>([]);
 
-  const fetchData = async () => {
-    api.get("fetchAll").then((response) => setDados(response.data));
-  };
+  async function GetCar() {
+    ///minha
+    //fetch("https://sheet.best/api/sheets/1a2e579f-7add-4dce-862b-f23e5f0921e5")
+    //abara
+    //fetch("https://sheet.best/api/sheets/2fa96ecf-7ae2-47d2-b54c-dea06e847bc7")
+    //bia
+    fetch("https://sheet.best/api/sheets/ae3f9af7-72c0-4864-985e-45bce616a4c1")
+
+    
+    //faex
+    // fetch("https://sheet.best/api/sheets/2fa96ecf-7ae2-47d2-b54c-dea06e847bc7")
+      .then((response) => response.json())
+      .then((data) => {
+        setDados(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   const handleSendId = async (e: any) => {
     const eventTarget = e.currentTarget;
 
     const containerCardId = eventTarget.parentNode.parentNode.id;
-
+    console.log("adddd", containerCardId);
     setState({ idState: containerCardId });
   };
-  const handleCripto = () =>{
-    window.location.href = "../Metamask/index.jsx";
-  }
 
   const handleDelete = async (e: any) => {
     const eventTarget = e.currentTarget;
@@ -46,14 +57,15 @@ export const Card = ({ state, setState }: IdCardProps) => {
     const containerCardId = eventTarget.parentNode.parentNode.id;
     console.log("id card: ", containerCardId);
 
-    await deleteCar(containerCardId);
-    location.reload();
+    // await deleteCar(containerCardId);
+    //location.reload();
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchData();
-    }, 100);
+GetCar();
+/*     setTimeout(() => {
+      location.reload();
+    }, 100); */
   }, []);
 
   return (
@@ -96,8 +108,8 @@ export const Card = ({ state, setState }: IdCardProps) => {
               </S.ContainerDescription>
 
               <S.ContainerButton>
-                <button type="button" >
-                <Link to={"/cripto"}>Pagar com cripto moeda</Link>
+                <button type="button">
+                  <Link to={"/cripto"}>Pagar com cripto moeda</Link>
                 </button>
                 <button type="button" onClick={handleDelete}>
                   Excluir
