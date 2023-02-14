@@ -14,7 +14,7 @@ interface Dados {
 export const save = (data: Dados) => {
   const config = {
     method: "POST",
-    url: "https://sheet.best/api/sheets/64db23b6-b6a2-4247-a602-08215d1cb738", //minha
+    url: "https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0", //minha
 
     mode: "cors",
     headers: {
@@ -36,7 +36,7 @@ export const save = (data: Dados) => {
 export async function update(id_car: string, data: Dados) {
   const config = {
     method: "PUT",
-    url: `https://sheet.best/api/sheets/64db23b6-b6a2-4247-a602-08215d1cb738/id_car/${id_car}`, //minha
+    url: `https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0/id_car/${id_car}`, //minha
 
     mode: "cors",
     headers: {
@@ -59,7 +59,7 @@ export async function update(id_car: string, data: Dados) {
 export async function deleteCar(containerCardId: string) {
   const config = {
     method: "DELETE",
-    url: `https://sheet.best/api/sheets/64db23b6-b6a2-4247-a602-08215d1cb738/id_car/${containerCardId}`,
+    url: `https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0/id_car/${containerCardId}`,
   };
 
   axios(config)

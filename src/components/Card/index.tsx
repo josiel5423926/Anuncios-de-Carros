@@ -24,7 +24,7 @@ export const Card = ({ state, setState }: IdCardProps) => {
   const [dados, setDados] = useState<ReturnDados[]>([]);
 
   async function GetCar() {
-    fetch("https://sheet.best/api/sheets/64db23b6-b6a2-4247-a602-08215d1cb738")
+    fetch("https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0")
       .then((response) => response.json())
       .then((data) => {
         setDados(data);
