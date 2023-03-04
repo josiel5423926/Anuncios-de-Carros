@@ -11,64 +11,56 @@ interface Dados {
   phone?: string;
 }
 
+const baseUrl = "https://api-loja-carro.onrender.com";
+
 export const save = (data: Dados) => {
-  const config = {
-    method: "POST",
-    url: "https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0", //minha
-
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data,
-  };
-  axios(config)
-    .then((r) => {
-      console.log(r);
+  axios
+    .post(`${baseUrl}/createCar`, data)
+    .then((response) => {
+      const createdCar = response.data;
+      console.log(createdCar);
     })
-
     .catch((error) => {
-      // Errors are reported there
       console.log(error);
     });
 };
 
 export async function update(id_car: string, data: Dados) {
-  const config = {
-    method: "PUT",
-    url: `https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0/id_car/${id_car}`, //minha
+  const {
+    name_car,
+    brand,
+    year_of_manufacture,
+    description,
+    name,
+    email,
+    phone,
+  } = data;
 
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data,
-  };
-  axios(config)
-    .then((r) => {
-      console.log(r);
-    })
-
-    .catch((error) => {
-      // Errors are reported there
-      console.log(error);
+  try {
+    const response = await axios.patch(`${baseUrl}/changeCar/${id_car}`, {
+      name_car: name_car || undefined,
+      brand: brand || undefined,
+      year_of_manufacture: year_of_manufacture || undefined,
+      description: description || undefined,
+      name: name || undefined,
+      email: email || undefined,
+      phone: phone || undefined,
     });
+
+    return response.data, true;
+  } catch (error) {
+    console.error(error);
+  }
   return true;
 }
 
 export async function deleteCar(containerCardId: string) {
-  const config = {
-    method: "DELETE",
-    url: `https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0/id_car/${containerCardId}`,
-  };
-
-  axios(config)
-    .then((r) => {
-      console.log(r);
+  axios
+    .delete(`${baseUrl}/deleteCar/${containerCardId}`)
+    .then((response) => {
+      console.log(response.status);
     })
-
     .catch((error) => {
-      // Errors are reported there
       console.log(error);
     });
 }

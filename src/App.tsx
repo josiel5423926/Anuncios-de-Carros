@@ -19,15 +19,12 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<Home state={state} setState={setState} />} />
-        <Route
-          path="/cadastrar"
-          element={<Register state={state} setState={setState} />}
-        />
+        <Route path="/cadastrar" element={<Register />} />
         <Route
           path="/atualizar"
           element={<Update state={state} setState={setState} />}
         />
-    <Route path="/cripto" element={<Metamask />} /> 
+        <Route path="/cripto" element={<Metamask />} />
       </Routes>
     </ThemeProvider>
   );

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./styles";
 import { deleteCar } from "../../services/axios";
 import { Link } from "react-router-dom";
@@ -20,11 +20,11 @@ interface IdCardProps {
   setState: React.Dispatch<React.SetStateAction<{ idState: string }>>;
 }
 
-export const Card = ({ state, setState }: IdCardProps) => {
+export const Card = ({ setState }: IdCardProps) => {
   const [dados, setDados] = useState<ReturnDados[]>([]);
 
   async function GetCar() {
-    fetch("https://sheet.best/api/sheets/b38531b4-6892-4220-94b7-4cb685ac7fe0")
+    fetch("https://api-loja-carro.onrender.com/")
       .then((response) => response.json())
       .then((data) => {
         setDados(data);
@@ -38,7 +38,6 @@ export const Card = ({ state, setState }: IdCardProps) => {
     const eventTarget = e.currentTarget;
 
     const containerCardId = eventTarget.parentNode.parentNode.id;
-    console.log("adddd", containerCardId);
     setState({ idState: containerCardId });
   };
 
@@ -47,7 +46,6 @@ export const Card = ({ state, setState }: IdCardProps) => {
     e.preventDefault();
 
     const containerCardId = eventTarget.parentNode.parentNode.id;
-    console.log("id card: ", containerCardId);
 
     await deleteCar(containerCardId);
     setTimeout(() => location.reload(), 1000);
@@ -64,7 +62,9 @@ export const Card = ({ state, setState }: IdCardProps) => {
           <>
             <S.ContainerCard key={dado.id_car} id={dado.id_car}>
               <S.ContainerTitle>
-                <S.Title style={{color:"black"}}>Carro: {dado.name_car} </S.Title>
+                <S.Title style={{ color: "black" }}>
+                  Carro: {dado.name_car}{" "}
+                </S.Title>
                 <img
                   src="https://source.unsplash.com/random/100x60/?carro"
                   alt=""

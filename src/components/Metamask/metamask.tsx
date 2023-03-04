@@ -38,7 +38,9 @@ export const Metamask = () => {
         const BalanceCarteiraEnvio = await provider.getBalance(
           "0x088E2BFCE7440bCb4422fd360B66F7546758D083"
         );
-        setEthAmount2(ethers.utils.formatEther(BalanceCarteiraEnvio.toString()));
+        setEthAmount2(
+          ethers.utils.formatEther(BalanceCarteiraEnvio.toString())
+        );
       }
     } catch {
       setMessage("Erro ao conectar");
@@ -71,14 +73,16 @@ export const Metamask = () => {
           to: account,
           value: ethers.utils.parseEther("0.0200000000000"),
         });
-        if(transaction){ 
+        if (transaction) {
           setMessage("Transferência realizada com sucesso!");
           const BalanceCarteiraEnvio = await provider.getBalance(
             "0x088E2BFCE7440bCb4422fd360B66F7546758D083"
-            );
-            setEthAmount2(ethers.utils.formatEther(BalanceCarteiraEnvio.toString()));
-          }
-          setTimeout(() => location.reload(), 1000);
+          );
+          setEthAmount2(
+            ethers.utils.formatEther(BalanceCarteiraEnvio.toString())
+          );
+        }
+        setTimeout(() => location.reload(), 1000);
       }
     } catch (e) {
       setAddress(address);

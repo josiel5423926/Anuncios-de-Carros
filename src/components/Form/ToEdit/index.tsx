@@ -18,8 +18,7 @@ interface IdCardProps {
   setState: React.Dispatch<React.SetStateAction<{ idState: string }>>;
 }
 
-export const Update = ({ state, setState }: IdCardProps) => {
-  const [dados, setDados] = useState<Data[]>([]);
+export const Update = ({ state }: IdCardProps) => {
   const [name_car, setName_car] = useState("");
   const [brand, setBrand] = useState("");
   const [year_of_manufacture, setYear_of_manufacture] = useState("");
@@ -42,22 +41,24 @@ export const Update = ({ state, setState }: IdCardProps) => {
     setEmail("");
     setPhone("");
   };
-
   const handleSubmit = async (e: React.SyntheticEvent, idCarState: string) => {
     e.preventDefault();
+
     let data: Data = {
       id_car: idCarState,
-      name_car: name_car,
-      brand: brand,
-      year_of_manufacture: parseInt(year_of_manufacture),
-      description: description,
-      name: name,
-      email: email,
-      phone: phone,
       updated: formattedDate,
     };
 
-    const res = await update(state.idState, data);
+    if (name_car) data.name_car = name_car;
+    if (brand) data.brand = brand;
+    if (year_of_manufacture)
+      data.year_of_manufacture = parseInt(year_of_manufacture);
+    if (description) data.description = description;
+    if (name) data.name = name;
+    if (email) data.email = email;
+    if (phone) data.phone = phone;
+
+    const res = await update(idCarState, data);
 
     if (res === true) {
       setTimeout(() => {

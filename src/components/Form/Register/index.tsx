@@ -13,14 +13,8 @@ interface Data {
   phone?: string;
   Data?: string;
 }
-interface IdCardProps {
-  state: { idState: string };
-  setState: React.Dispatch<React.SetStateAction<{ idState: string }>>;
-}
 
-export const Register = ({ state, setState }: IdCardProps) => {
-  const [dados, setDados] = useState<Data[]>([]);
-
+export const Register = () => {
   const [name_car, setName_car] = useState("");
   const [brand, setBrand] = useState("");
   const [year_of_manufacture, setYear_of_manufacture] = useState("");
