@@ -108,7 +108,7 @@ export const Metamask = () => {
  if (isBrowser) screenSize = window.screen.width;
 
 
- const handleOpenMetamask = () => {
+
    const handleOpenMetamask = () => {
      const ethereumUrl = "ethereum:";
      const fallbackUrl = "https://metamask.app.link/dapp/yourdapp.com";
@@ -121,7 +121,7 @@ export const Metamask = () => {
        window.open(fallbackUrl);
      }
    };
- };
+
  return (
    <S.Container>
      <S.ContainerBox>
