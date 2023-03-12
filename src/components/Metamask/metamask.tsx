@@ -1,11 +1,11 @@
 import * as S from "./styles";
-import  { useState } from "react";
+import React, { useState } from "react";
 import { ethers } from "ethers";
 
 
-const isBrowser = typeof window !== "undefined";
-
-
+interface TypeText {
+ message: string | undefined;
+}
 export const Metamask = () => {
  const [message, setMessage] = useState("conecte na sua carteira");
  const [address, setAddress] = useState("");
@@ -104,23 +104,7 @@ export const Metamask = () => {
      }
    }
  }
- let screenSize = 0;
- if (isBrowser) screenSize = window.screen.width;
 
-
-
-   const handleOpenMetamask = () => {
-     const ethereumUrl = "ethereum:";
-     const fallbackUrl = "https://metamask.app.link/dapp/yourdapp.com";
-     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-
-     if (isMobile) {
-       window.open(ethereumUrl);
-     } else {
-       window.open(fallbackUrl);
-     }
-   };
 
  return (
    <S.Container>
@@ -143,22 +127,9 @@ export const Metamask = () => {
 
 
        <S.ContainerButton>
-         {screenSize < 668 ? (
-           <button
-             value="Conectar"
-             onClick={(evt) => {
-               loadData(), handleOpenMetamask();
-             }}
-           >
-             Conectar
-           </button>
-         ) : (
-           <button value="Conectar" onClick={(evt) => loadData()}>
-             Conectar
-           </button>
-         )}
-
-
+         <button value="Conectar" onClick={(evt) => loadData()}>
+           Conectar
+         </button>
          <button value="transfer" onClick={(evt2) => transfer()}>
            Trasferir
          </button>
