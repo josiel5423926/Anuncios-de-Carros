@@ -21,17 +21,30 @@ interface IdCardProps {
 }
 
 export const Card = ({ setState }: IdCardProps) => {
+  const [loading, setLoading] = useState(true);
   const [dados, setDados] = useState<ReturnDados[]>([]);
 
   async function GetCar() {
-    fetch("https://api-loja-carro.onrender.com/")
-      .then((response) => response.json())
-      .then((data) => {
-        setDados(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const response = await fetch("https://api-loja-carro.onrender.com/");
+      const data = await response.json();
+      setDados(data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    GetCar();
+  }, []);
+
+  if (loading) {
+    return (
+      <S.LoadingWrapper>
+        <S.Loading>Loading...</S.Loading>
+      </S.LoadingWrapper>
+    );
   }
 
   const handleSendId = async (e: any) => {
@@ -51,10 +64,6 @@ export const Card = ({ setState }: IdCardProps) => {
     setTimeout(() => location.reload(), 1000);
   };
 
-  useEffect(() => {
-    GetCar();
-  }, []);
-
   return (
     <>
       {dados.map((dado) => {
@@ -63,7 +72,7 @@ export const Card = ({ setState }: IdCardProps) => {
             <S.ContainerCard key={dado.id_car} id={dado.id_car}>
               <S.ContainerTitle>
                 <S.Title style={{ color: "black" }}>
-                  Carro: {dado.name_car}{" "}
+                  Carro: {dado.name_car}
                 </S.Title>
                 <img
                   src="https://source.unsplash.com/random/100x60/?carro"
